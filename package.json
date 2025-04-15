@@ -1,0 +1,15 @@
+{
+  "name": "cypress-automation",
+  "version": "1.0.0",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "test:api": "cypress run --e2e --spec 'cypress/e2e/api/*/*.cy.js'",
+    "test:web": "cypress run --e2e --spec 'cypress/e2e/web/*/*.cy.js'",
+    "test:all": "cypress run --e2e"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "cypress": "^14.3.0"
+  }
+}

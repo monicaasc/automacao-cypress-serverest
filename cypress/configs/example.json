@@ -1,0 +1,8 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "apiUrl": "http://localhost:3001/api/v1",
+    "user": {
+      "email": "user@example.com",
+      "password": "password"
+    }
+  }
