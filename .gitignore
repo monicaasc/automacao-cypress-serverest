@@ -5,3 +5,7 @@ cypress/videos/
 
 # Dependências
 node_modules/
+
+# Env
+cypress/configs/
+!cypress/configs/example.json
