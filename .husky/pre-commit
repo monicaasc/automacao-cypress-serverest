@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+
+echo "🔍 Iniciando a verificação de código com o lint..."
+
+if npm run lint; then
+  echo "✅ Lint OK"
+else
+  echo "❌ Lint com erros. É necessário corrigir antes de commitar."
+  exit 1
+fi
