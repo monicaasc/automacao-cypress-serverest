@@ -24,3 +24,18 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import 'cypress-ajv-schema-validator'
+
+Cypress.Commands.add('login', (email, password) => {
+  const apiUrl = Cypress.env('apiUrl')
+  const defaultUser = Cypress.env('user')
+
+  return cy.api({
+    method: 'POST',
+    url: `${apiUrl}/login`,
+    body: {
+      email: email || defaultUser.email,
+      password: password || defaultUser.password
+    },
+    failOnStatusCode: false
+  })
+})
