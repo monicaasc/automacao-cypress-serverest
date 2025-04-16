@@ -1,0 +1,38 @@
+// .eslintrc.json
+{
+  "env": {
+    "browser": true, // Permite uso de objetos do navegador (window, document, etc.)
+    "commonjs": true, // Suporte a módulos CommonJS (require, module.exports)
+    "es2021": true, // Habilita recursos do ES2021
+    "node": true // Permite uso de objetos do Node.js (process, __dirname, etc.)
+  },
+  "extends": "eslint:recommended", // Usa conjunto de regras básicas recomendadas pelo ESLint
+  "parserOptions": {
+    "ecmaVersion": 12 // Define versão do ECMAScript (12 = ES2021)
+  },
+  "rules": {
+    "indent": [ // Exige indentação de 2 espaços
+      "error",
+      2
+    ],
+    "linebreak-style": [ // Requer quebras de linha no estilo Unix (LF)
+      "error",
+      "unix"
+    ],
+    "quotes": [ // Exige o uso de aspas simples
+      "error",
+      "single"
+    ],
+    "semi": [ // Proíbe uso de ponto e vírgula
+      "error",
+      "never"
+    ],
+    "no-trailing-spaces": [ // Proíbe espaços em branco no fim das linhas
+      "error"
+    ],
+    "no-unused-vars": [ // Emite aviso para variáveis declaradas e não utilizadas
+      "warn"
+    ],
+    "no-undef": "error" // Erro ao usar variáveis não definidas
+  }
+}

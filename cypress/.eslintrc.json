@@ -1,0 +1,25 @@
+{
+  // Estende as regras recomendadas do plugin Cypress
+  "extends": [
+    "plugin:cypress/recommended"
+  ],
+  "rules": {
+    // Proíbe o uso de { force: true } — evita interações forçadas e frágeis
+    "cypress/no-force": "error",
+
+    // Exige uma asserção antes de capturar screenshots
+    "cypress/assertion-before-screenshot": "error",
+
+    // Recomenda usar atributos como data-* para selecionar elementos
+    "cypress/require-data-selectors": "warn",
+
+    // Proíbe o uso de cy.pause()
+    "cypress/no-pause": "error",
+
+    // Impede o uso de XPath — seletores difíceis de manter
+    "cypress/no-xpath": "error",
+
+    // Proíbe o uso de cy.wait()
+    "cypress/no-unnecessary-waiting": "error"
+  }
+}
