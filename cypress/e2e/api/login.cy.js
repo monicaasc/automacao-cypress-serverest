@@ -1,9 +1,11 @@
+import schema from '../../fixtures/schemas/serverest-schema.json'
+
 describe('API Login - ServerRest', () => {
   const apiUrl = Cypress.env('apiUrl')
+  const { email, password } = Cypress.env('user')
 
   context('Credenciais válidas', () => {
     it('Deve autenticar com sucesso e retornar token', () => {
-      const { email, password } = Cypress.env('user')
 
       cy.api({
         method: 'POST',
@@ -14,6 +16,14 @@ describe('API Login - ServerRest', () => {
         expect(response.body).to.have.property('authorization').and.not.be.empty
         expect(response.body.message).to.eq('Login realizado com sucesso')
       })
+    })
+
+    it('Retorno deve estar conforme schema esperado - Status 200', () => {
+      cy.api({
+        method: 'POST',
+        url: `${apiUrl}/login`,
+        body: { email, password }
+      }).validateSchema(schema, {endpoint: '/login', method: 'post', status: 200})
     })
   })
 
@@ -32,5 +42,18 @@ describe('API Login - ServerRest', () => {
         expect(response.body.message).to.eq('Email e/ou senha inválidos')
       })
     })
+
+    it('Retorno deve estar conforme schema esperado - Status 401', () => {
+      cy.api({
+        method: 'POST',
+        url: `${apiUrl}/login`,
+        failOnStatusCode: false,
+        body: {
+          email: 'invalido@qa.com',
+          password: 'senhaerrada'
+        },
+      }).validateSchema(schema, {endpoint: '/login', method: 'post', status: 401})
+    })
+
   })
 })
