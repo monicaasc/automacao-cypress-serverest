@@ -4,7 +4,7 @@ describe('API Login - ServerRest', () => {
   const apiUrl = Cypress.env('apiUrl')
   const { email, password } = Cypress.env('user')
 
-  context('Credenciais válidas', () => {
+  context('Login válido', () => {
     it('Deve autenticar com sucesso e retornar token', () => {
 
       cy.api({
@@ -27,8 +27,8 @@ describe('API Login - ServerRest', () => {
     })
   })
 
-  context('Credenciais inválidas', () => {
-    it('Deve retornar erro ao tentar autenticar', () => {
+  context('Login inválido', () => {
+    it('Credenciais inválidas - Deve retornar erro ao tentar autenticar', () => {
       cy.api({
         method: 'POST',
         url: `${apiUrl}/login`,
@@ -40,6 +40,50 @@ describe('API Login - ServerRest', () => {
       }).then((response) => {
         expect(response.status).to.eq(401)
         expect(response.body.message).to.eq('Email e/ou senha inválidos')
+      })
+    })
+
+    it('Campos obrigatórios - Deve retornar erro ao tentar autenticar', () => {
+      cy.api({
+        method: 'POST',
+        url: `${apiUrl}/login`,
+        body: {
+          email: '',
+          password: ''
+        },
+        failOnStatusCode: false
+      }).then((response) => {
+        expect(response.status).to.eq(400)
+        expect(response.body.email).to.eq('email não pode ficar em branco')
+        expect(response.body.password).to.eq('password não pode ficar em branco')
+      })
+    })
+
+    it('Campos não informados - Deve retornar erro ao tentar autenticar', () => {
+      cy.api({
+        method: 'POST',
+        url: `${apiUrl}/login`,
+        failOnStatusCode: false
+      }).then((response) => {
+        expect(response.status).to.eq(400)
+        expect(response.body.email).to.eq('email é obrigatório')
+        expect(response.body.password).to.eq('password é obrigatório')
+      })
+    })
+
+    it('Email inválido - Deve retornar erro ao tentar autenticar', () => {
+      cy.api({
+        method: 'POST',
+        url: `${apiUrl}/login`,
+        body: {
+          email: 'emailinvalido.com',
+          password: '123'
+        },
+        failOnStatusCode: false
+      }).then((response) => {
+        expect(response.status).to.eq(400)
+        expect(response.body.email).to.eq('email deve ser um email válido')
+
       })
     })
 
