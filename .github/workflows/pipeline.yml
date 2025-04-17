@@ -33,6 +33,7 @@ jobs:
 
       - name: Create prod config file
         run: |
+          mkdir -p configs
           echo '{
             "baseUrl": "${{ secrets.UI_BASE_URL }}",
             "apiUrl": "${{ secrets.API_BASE_URL }}",            
