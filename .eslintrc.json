@@ -15,9 +15,9 @@
       "error",
       2
     ],
-    "linebreak-style": [ // Requer quebras de linha no estilo Unix (LF)
+    "linebreak-style": [ // Requer quebras de linha
       "error",
-      "unix"
+      "windows"
     ],
     "quotes": [ // Exige o uso de aspas simples
       "error",
