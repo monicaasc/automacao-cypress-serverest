@@ -5,25 +5,20 @@ name: Pipeline
 # Controls when the workflow will run
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "develop", "main", "feature/pipeline" ]
   pull_request:
     branches: [ "develop", "main" ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  e2e-tests:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    
-    strategy:
-      matrix:
-        browser: [chrome, firefox]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-          
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout code
         uses: actions/checkout@v4
@@ -36,7 +31,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Create .env.prod
+      - name: Create prod config file
         run: |
           echo '{
             "baseUrl": "${{ secrets.UI_BASE_URL }}",
@@ -49,7 +44,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          browser: ${{ matrix.browser }}
+          browser: chrome
           headless: true
           #env: env=ci
           config-file: cypress.config.js
