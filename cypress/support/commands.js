@@ -23,3 +23,53 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import 'cypress-ajv-schema-validator'
+
+// LOGIN
+
+Cypress.Commands.add('login', (credenciais = {}) => {
+  const apiUrl = Cypress.env('apiUrl')
+
+  return cy.api({
+    method: 'POST',
+    url: `${apiUrl}/login`,
+    body: credenciais,
+    failOnStatusCode: false
+  })
+})
+
+// USUARIOS
+
+Cypress.Commands.add('addUsuario', (user = {}) => {
+  return cy.api({
+    method: 'POST',
+    url: `${Cypress.env('apiUrl')}/usuarios`,
+    body: user,
+    failOnStatusCode: false
+  })
+})
+
+Cypress.Commands.add('listUsuarios', (params = {}) =>{
+  return cy.api({
+    method: 'GET',
+    url: `${Cypress.env('apiUrl')}/usuarios`,
+    qs: params,
+    failOnStatusCode: false
+  })
+})
+
+Cypress.Commands.add('getUsuario', (id) => {
+  cy.api({
+    method: 'GET',
+    url: `${Cypress.env('apiUrl')}/usuarios/${id}`,
+    failOnStatusCode: false
+  })
+})
+
+Cypress.Commands.add('deleteUsuario', (id) => {
+  cy.api({
+    method: 'DELETE',
+    url: `${Cypress.env('apiUrl')}/usuarios/${id}`,
+    failOnStatusCode: false
+  })
+})
