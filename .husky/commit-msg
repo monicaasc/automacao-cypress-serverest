@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+
+echo "🔍 Iniciando a verificação da mensagem de commit..."
+
+if npx --no -- commitlint --edit "$1"; then
+  echo "✅ Mensagem de commit OK"
+else
+  echo "❌ Erro no padrão de commit. É necessário corrigir antes de commitar."
+  exit 1
+fi

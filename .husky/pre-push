@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+
+echo "🧪 Executando testes e2e..."
+
+if npm run test:all; then
+  echo "✅ Testes passaram!"
+else
+  echo "❌ Testes falharam. É necessário corrigir antes de commitar."
+  exit 1
+fi
