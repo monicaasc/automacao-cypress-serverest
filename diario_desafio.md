@@ -60,9 +60,14 @@ Antes de colocar a mão na massa, foi essencial refletir sobre a estrutura e as 
 
   - Centralização de mensagens em um arquivo `mensagens.js`
 
-- **Distribuição equilibrada de testes**
+- **Distribuição de testes**
 
   - Foco no teste de serviço, considerando seu custo em relação ao de UI
+
+  **Pipeline de CI configurada com sucesso** - [![Pipeline](https://github.com/monicaasc/desafio-ambev/actions/workflows/pipeline.yml/badge.svg?branch=develop)](https://github.com/monicaasc/desafio-ambev/actions/workflows/pipeline.yml)
+  - A integração com o GitHub Actions foi ajustada e está funcional, executando automaticamente os testes a cada push ou pull request nas branches `main` e `develop`.
+  Esse fluxo garante feedback rápido sobre possíveis quebras, aumentando a confiabilidade e agilidade nas entregas.
+  - Utilização de secrets do GitHub para garantir a segurança das configurações.
 
 
 
