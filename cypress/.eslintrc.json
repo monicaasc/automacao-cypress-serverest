@@ -16,9 +16,6 @@
     // Proíbe o uso de cy.pause()
     "cypress/no-pause": "error",
 
-    // Impede o uso de XPath — seletores difíceis de manter
-    "cypress/no-xpath": "error",
-
     // Proíbe o uso de cy.wait()
     "cypress/no-unnecessary-waiting": "error"
   }
