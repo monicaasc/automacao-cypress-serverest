@@ -1,16 +1,18 @@
 import { loginFactory } from '../../support/factories/loginFactory'
 import schema from '../../fixtures/schemas/serverest-schema.json'
+import { MENSAGENS } from '../../support/messages'
 
 describe('API Login - POST', () => {
 
   context('Login válido', () => {
+
     it('Deve autenticar com sucesso e retornar token', () => {
       const credenciais = loginFactory.valido()
 
-      cy.login(credenciais).then((response) => {
+      cy.login(credenciais).should((response) => {
         expect(response.status).to.eq(200)
         expect(response.body).to.have.property('authorization').and.not.be.empty
-        expect(response.body.message).to.eq('Login realizado com sucesso')
+        expect(response.body.message).to.eq(MENSAGENS.LOGIN.SUCESSO)
       })
     })
 
@@ -25,41 +27,41 @@ describe('API Login - POST', () => {
 
   context('Login inválido', () => {
 
-    it('Credenciais inválidas - Deve retornar erro ao tentar autenticar', () => {
+    it('Não deve autenticar com dados incorretos', () => {
       const credenciais = loginFactory.invalido()
 
-      cy.login(credenciais).then((response) => {
+      cy.login(credenciais).should((response) => {
         expect(response.status).to.eq(401)
-        expect(response.body.message).to.eq('Email e/ou senha inválidos')
+        expect(response.body.message).to.eq(MENSAGENS.LOGIN.CREDENCIAIS_INVALIDAS)
       })
     })
 
-    it('Campos obrigatórios - Deve retornar erro ao tentar autenticar', () => {
+    it('Não deve autenticar com campos em branco', () => {
       const credenciais = loginFactory.camposEmBranco()
 
-      cy.login(credenciais).then((response) => {
+      cy.login(credenciais).should((response) => {
         expect(response.status).to.eq(400)
-        expect(response.body.email).to.eq('email não pode ficar em branco')
-        expect(response.body.password).to.eq('password não pode ficar em branco')
+        expect(response.body.email).to.eq(MENSAGENS.GERAL.EM_BRANCO.EMAIL)
+        expect(response.body.password).to.eq(MENSAGENS.GERAL.EM_BRANCO.SENHA)
       })
     })
 
     it('Campos não informados - Deve retornar erro ao tentar autenticar', () => {
       const credenciais = loginFactory.camposAusentes()
 
-      cy.login(credenciais).then((response) => {
+      cy.login(credenciais).should((response) => {
         expect(response.status).to.eq(400)
-        expect(response.body.email).to.eq('email é obrigatório')
-        expect(response.body.password).to.eq('password é obrigatório')
+        expect(response.body.email).to.eq(MENSAGENS.GERAL.OBRIGATORIO.EMAIL)
+        expect(response.body.password).to.eq(MENSAGENS.GERAL.OBRIGATORIO.SENHA)
       })
     })
 
-    it('Email inválido - Deve retornar erro ao tentar autenticar', () => {
+    it('Não deve autenticar com email em formato inválido', () => {
       const credenciais = loginFactory.emailInvalido()
 
-      cy.login(credenciais).then((response) => {
+      cy.login(credenciais).should((response) => {
         expect(response.status).to.eq(400)
-        expect(response.body.email).to.eq('email deve ser um email válido')
+        expect(response.body.email).to.eq(MENSAGENS.GERAL.INVALIDO.EMAIL)
 
       })
     })
