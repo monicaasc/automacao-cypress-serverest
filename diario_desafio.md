@@ -64,10 +64,13 @@ Antes de colocar a mão na massa, foi essencial refletir sobre a estrutura e as 
 
   - Foco no teste de serviço, considerando seu custo em relação ao de UI
 
-  **Pipeline de CI configurada com sucesso** - [![Pipeline](https://github.com/monicaasc/desafio-ambev/actions/workflows/pipeline.yml/badge.svg?branch=develop)](https://github.com/monicaasc/desafio-ambev/actions/workflows/pipeline.yml)
+- **Pipeline de CI configurada com sucesso** - [![Pipeline](https://github.com/monicaasc/desafio-ambev/actions/workflows/pipeline.yml/badge.svg?branch=develop)](https://github.com/monicaasc/desafio-ambev/actions/workflows/pipeline.yml)
   - A integração com o GitHub Actions foi ajustada e está funcional, executando automaticamente os testes a cada push ou pull request nas branches `main` e `develop`.
   Esse fluxo garante feedback rápido sobre possíveis quebras, aumentando a confiabilidade e agilidade nas entregas.
   - Utilização de secrets do GitHub para garantir a segurança das configurações.
+  
+- **Registro de Issues**
+  - Uso das Issues no Github para ter mapeado outros pontos de melhoria: [Issues do Projeto](https://github.com/monicaasc/desafio-ambev/issues)
 
 
 
@@ -88,7 +91,6 @@ Antes de colocar a mão na massa, foi essencial refletir sobre a estrutura e as 
 ## 🔍 O que pode ser melhorado...
 
 - Integração com relatórios (como Mochawesome, Allure) para melhor visibilidade dos resultados.
-- Ajustar pipeline no **GitHub Actions** para corrigir execução.
 - Considerei a inclusão de **teste de regressão visual** com `cypress-image-snapshot`, mas foi necessário despriorizar esse item para outro momento.
 - "Tempo é dinheiro!" — conforme a suite vai crescendo é necessário avaliar estratégias de limitar execução ou rodar testes específicos. O uso do cypress-grep poderia ajudar.
   - Uso do `cypress-grep` para filtragem por tags como `@smoke`, `@regression`.
