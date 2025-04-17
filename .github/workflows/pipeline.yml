@@ -31,16 +31,17 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Create prod config file
+      - name: Create dev config file
         run: |
-          mkdir -p configs
+          mkdir -p cypress/configs
           echo '{
             "baseUrl": "${{ secrets.UI_BASE_URL }}",
             "apiUrl": "${{ secrets.API_BASE_URL }}",            
             "user": {
               "email": "${{ secrets.PROD_USER_EMAIL }}",
               "password": "${{ secrets.PROD_USER_PASSWORD }}"
-            }' > configs/prod.json
+            }
+          }' > ./cypress/configs/dev.json
       
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
@@ -49,6 +50,6 @@ jobs:
           headless: true
           #env: env=ci
           config-file: cypress.config.js
-          env: "configFile=prod.json"
+          env: "env=dev"
         continue-on-error: false # Falha o job se os testes falharem
 
