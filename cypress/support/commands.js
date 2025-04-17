@@ -25,17 +25,13 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import 'cypress-ajv-schema-validator'
 
-Cypress.Commands.add('login', (email, password) => {
+Cypress.Commands.add('login', (credenciais = {}) => {
   const apiUrl = Cypress.env('apiUrl')
-  const defaultUser = Cypress.env('user')
 
   return cy.api({
     method: 'POST',
     url: `${apiUrl}/login`,
-    body: {
-      email: email || defaultUser.email,
-      password: password || defaultUser.password
-    },
+    body: credenciais,
     failOnStatusCode: false
   })
 })
