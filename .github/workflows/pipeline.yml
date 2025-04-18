@@ -4,6 +4,10 @@ name: Pipeline
 
 # Controls when the workflow will run
 on:
+  schedule:
+    - cron: '0 1 * * MON,WED,FRI' # Agendamento para 01:00 nas segundas, quartas e sextas
+  push: 
+    branches: [7-implementar-cypress-grep]
   pull_request:
     branches: [ "develop", "main" ]
 
@@ -41,13 +45,26 @@ jobs:
             }
           }' > ./cypress/configs/dev.json
       
-      - name: Run Cypress Tests
+      # Execução de smoke e regression teste quando tem PR em develop
+      - name: Run Smoke and Regression tests (develop)
+        if: github.ref == 'refs/heads/develop'
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
           headless: true
           #env: env=ci
           config-file: cypress.config.js
-          env: "env=dev"
+          env: "env=dev,grepTags='@smoke @regression'"
         continue-on-error: false # Falha o job se os testes falharem
 
+        # Execução de todos os testes em PR para main ou agendamento
+      - name: Run full test (main ou schedule)
+        if: github.ref == 'refs/heads/main' || github.event_name == 'schedule'
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          headless: true
+          config-file: cypress.config.js
+          env: env=dev
+          command: npm run test:all
+          continue-on-error: false # Falha o job se os testes falharem
