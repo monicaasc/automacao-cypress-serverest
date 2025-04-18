@@ -4,11 +4,13 @@ on:
   schedule:
     - cron: '0 1 * * MON,WED,FRI' # Agendamento para 01:00 nas segundas, quartas e sextas
   push: 
-    branches: # Executa exceto nas branchs develop e master
-      - '!develop'
-      - '!master'
+    branches-ignore: # Executa exceto nas branchs develop e master
+      - 'develop'
+      - 'master'
   pull_request:
-    branches: [ "develop", "main" ]
+    branches: 
+      - 'develop'
+      - 'main'
 
 jobs:
   e2e-tests:
@@ -40,7 +42,7 @@ jobs:
           }' > ./cypress/configs/dev.json
 
         # Execução de todos os testes (PR para main ou agendamento)
-      - name: Run full test (main ou schedule)
+      - name: Run full test (PR main ou schedule)
         if: github.ref == 'refs/heads/main' || github.event_name == 'schedule'
         uses: cypress-io/github-action@v6
         with:
@@ -52,7 +54,7 @@ jobs:
           continue-on-error: false # Falha o job se os testes falharem
       
       # Execução de smoke e regression teste (PR para develop)
-      - name: Run Smoke and Regression tests (develop)
+      - name: Run Smoke and Regression tests (PR develop)
         if: github.ref == 'refs/heads/develop'
         uses: cypress-io/github-action@v6
         with:
