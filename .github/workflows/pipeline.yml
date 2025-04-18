@@ -47,7 +47,7 @@ jobs:
       
       # Execução de smoke e regression teste quando tem PR em develop
       - name: Run Smoke and Regression tests (develop)
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/7-implementar-cypress-grep' 
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
