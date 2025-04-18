@@ -1,4 +1,4 @@
-# Desafio Ambev
+# Desafio Cypress
 
 Este projeto utiliza o [Cypress](https://www.cypress.io/) para realizar testes automatizados de *API* e *WEB*.
 
