@@ -35,6 +35,26 @@ npm run test:web
 npm run test:api
 ```
 
+### 🎯 Execução filtrada por tags
+
+Este projeto utiliza o plugin [`@cypress/grep`](https://www.npmjs.com/package/@cypress/grep) para permitir a execução seletiva de testes com base em **tags** configuradas, como por exemplo, `@smoke` e `@regression`.
+
+#### 📌 Exemplos de execução com filtro
+
+```bash
+# Executa apenas os testes marcados com a tag @smoke
+npx cypress run --env grepTags=@smoke
+
+# Executa apenas os testes marcados com a tag @regression
+npx cypress run --env grepTags=@regression
+```
+
+#### ✅ Convenção adotada
+
+- `@smoke` → Testes principais e de fluxo feliz  
+- `@regression` → Conjunto completo incluindo testes negativos
+
+
 ---
 
 ## 📂Estrutura de Pastas
