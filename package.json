@@ -8,11 +8,14 @@
     "test:all": "cypress run --e2e",
     "prepare": "husky install",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test:smoke": "cypress run --e2e --env grep=@smoke",
+    "test:regression": "cypress run --e2e --env grep=@regression"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@cypress/grep": "^4.1.0",
     "@faker-js/faker": "^9.7.0",
     "ajv": "^8.17.1",
     "cypress": "^14.3.0",
