@@ -58,14 +58,15 @@ jobs:
         with:
           browser: chrome
           config-file: cypress.config.js
-          env: "env=dev,grepTags='@smoke @regression',grepOmitFiltered=true"
+          command: npm run test:smoke+regression
         continue-on-error: false # Falha o job se os testes falharem
 
-      # Execução de smoke e regression teste (push)
+      # Execução de smoke teste (push)
       - name: Run Smoke tests (push)
+        if: github.event_name == 'push'
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
           config-file: cypress.config.js
-          env: "env=dev,grepTags=@smoke,grepOmitFiltered=true"
+          command: npm run test:smoke
         continue-on-error: false # Falha o job se os testes falharem
