@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "scripts": {
     "cy:open": "cypress open",
+    "test:all": "cypress run --e2e",
     "test:api": "cypress run --e2e --spec 'cypress/e2e/api/**/*.cy.js'",
     "test:web": "cypress run --e2e --spec 'cypress/e2e/web/**/*.cy.js'",
-    "test:all": "cypress run --e2e",
+    "test:smoke": "cypress run --e2e --env grepTags=@smoke,grepOmitFiltered=true",
+    "test:regression": "cypress run --e2e --env grepTags=@regression,grepOmitFiltered=true",
+    "test:smoke+regression": "cypress run --e2e --env grepTags=\"@smoke @regression\",grepOmitFiltered=true",
     "prepare": "husky install",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "test:smoke": "cypress run --e2e --env grep=@smoke",
-    "test:regression": "cypress run --e2e --env grep=@regression"
+    "lint:fix": "eslint . --fix"
+
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",

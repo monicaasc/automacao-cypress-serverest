@@ -1,6 +1,13 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Ignorar commit de merge (ex: "Merge branch..."), mas validar todos os outros
+commit_message=$(git log -1 --pretty=%B)
+
+if echo "$commit_message" | grep -q "^Merge "; then
+  echo "🔄 Commit de merge detectado, pulando verificação de mensagem."
+  exit 0
+fi
 
 echo "🔍 Iniciando a verificação da mensagem de commit..."
 
