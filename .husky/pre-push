@@ -1,12 +1,26 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+echo "🧪 Verificando testes modificados..."
 
-echo "🧪 Executando testes e2e..."
+# Encontra arquivos de teste modificados (staged para commit)
+changed_specs=$(git diff --cached --name-only | grep -E '^cypress/e2e/.*\.(cy|spec)\.(js|ts)$') || true
 
-if npm run test:all; then
+if [ -z "$changed_specs" ]; then
+  echo "📦 Nenhum teste e2e modificado (staged). Nenhuma ação necessária."
+  exit 0
+fi
+
+# Junta os caminhos em uma lista separada por vírgula
+specs=$(echo "$changed_specs" | paste -sd "," -)
+
+echo "🚀 Executando os testes modificados:"
+echo "$specs"
+
+# Executa os testes modificados
+if npx cypress run --spec "$specs"; then
   echo "✅ Testes passaram!"
 else
-  echo "❌ Testes falharam. É necessário corrigir antes de commitar."
+  echo "❌ Testes falharam. É necessário corrigir antes de fazer o push."
   exit 1
 fi
