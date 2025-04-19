@@ -6,7 +6,7 @@ describe('API Login - POST', () => {
 
   context('Login válido', () => {
 
-    it('Deve autenticar com sucesso e retornar token', () => {
+    it('Deve autenticar com sucesso e retornar token', {tags: ['@smoke', '@regression']}, () => {
       const credenciais = loginFactory.valido()
 
       cy.login(credenciais).should((response) => {
@@ -16,7 +16,7 @@ describe('API Login - POST', () => {
       })
     })
 
-    it('Retorno deve estar conforme schema esperado - Status 200', () => {
+    it('Retorno deve estar conforme schema esperado - Status 200', {tags: '@regression'}, () => {
       const credenciais = loginFactory.valido()
 
       cy.login(credenciais).validateSchema(schema, {
@@ -27,7 +27,7 @@ describe('API Login - POST', () => {
 
   context('Login inválido', () => {
 
-    it('Não deve autenticar com dados incorretos', () => {
+    it('Não deve autenticar com dados incorretos', {tags: '@regression'}, () => {
       const credenciais = loginFactory.invalido()
 
       cy.login(credenciais).should((response) => {
@@ -36,7 +36,7 @@ describe('API Login - POST', () => {
       })
     })
 
-    it('Não deve autenticar com campos em branco', () => {
+    it('Não deve autenticar com campos em branco', {tags: '@regression'}, () => {
       const credenciais = loginFactory.camposEmBranco()
 
       cy.login(credenciais).should((response) => {
@@ -46,7 +46,7 @@ describe('API Login - POST', () => {
       })
     })
 
-    it('Campos não informados - Deve retornar erro ao tentar autenticar', () => {
+    it('Campos não informados - Deve retornar erro ao tentar autenticar', {tags: '@regression'}, () => {
       const credenciais = loginFactory.camposAusentes()
 
       cy.login(credenciais).should((response) => {
@@ -56,7 +56,7 @@ describe('API Login - POST', () => {
       })
     })
 
-    it('Não deve autenticar com email em formato inválido', () => {
+    it('Não deve autenticar com email em formato inválido', {tags: '@regression'}, () => {
       const credenciais = loginFactory.emailInvalido()
 
       cy.login(credenciais).should((response) => {
@@ -66,7 +66,7 @@ describe('API Login - POST', () => {
       })
     })
 
-    it('Retorno deve estar conforme schema esperado - Status 401', () => {
+    it('Retorno deve estar conforme schema esperado - Status 401', {tags: '@regression'}, () => {
       const credenciais = loginFactory.emailInvalido()
 
       cy.login(credenciais).validateSchema(schema, {

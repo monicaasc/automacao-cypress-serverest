@@ -28,7 +28,7 @@ describe('API Usuarios', () => {
       })
     })
 
-    it('Busca por Nome', () => {
+    it('Busca por Nome', {tags: ['@smoke', '@regression']}, () => {
       const params = { nome: usuario.nome }
 
       // Faz a validação
@@ -44,7 +44,7 @@ describe('API Usuarios', () => {
       })
     })
 
-    it('Busca por Email', () => {
+    it('Busca por Email', {tags: '@regression'}, () => {
       const params = { email: usuario.email }
 
       // Faz a validação
@@ -61,7 +61,7 @@ describe('API Usuarios', () => {
       })
     })
 
-    it('Registro não encontrado', () => {
+    it('Registro não encontrado', {tags: '@regression'}, () => {
       const params = {nome: 'Not Found', email: 'notfound@404.com'}
       cy.listUsuarios(params).should((response) => {
         expect(response.status).to.eq(200)
@@ -70,7 +70,7 @@ describe('API Usuarios', () => {
       })
     })
 
-    it('Retorno deve estar conforme schema esperado - Status 200', () => {
+    it('Retorno deve estar conforme schema esperado - Status 200', {tags: '@regression'}, () => {
       cy.api({
         method: 'GET',
         url: `${apiUrl}/usuarios`
@@ -83,7 +83,7 @@ describe('API Usuarios', () => {
 
   context('GET Usuario by ID', () => {
 
-    it('Deve buscar o registro a partir do id', () => {
+    it('Deve buscar o registro a partir do id', {tags: ['@smoke', '@regression']}, () => {
       const usuario = userFactory.valido()
       cy.addUsuario(usuario)
         .then((response) => {
@@ -94,7 +94,7 @@ describe('API Usuarios', () => {
           })
         })
     })
-    it('Deve validar o formato do id esperado', () => {
+    it('Deve validar o formato do id esperado', {tags: '@regression'}, () => {
 
       cy.getUsuario().should((response) => {
         expect(response.status).to.eq(400)
@@ -106,7 +106,7 @@ describe('API Usuarios', () => {
   context('POST Usuario', () => {
     const usuario = userFactory.valido()
 
-    it('Realiza cadastro com sucesso - Status 201', () => {
+    it('Realiza cadastro com sucesso - Status 201', {tags: ['@smoke', '@regression']}, () => {
       cy.addUsuario(usuario)
         .validateSchema(schema, {
           endpoint: '/usuarios', method: 'post', status: 201
@@ -117,7 +117,7 @@ describe('API Usuarios', () => {
         })
     })
 
-    it('Não deve permitir cadastro com um email inválido - Status 400', () => {
+    it('Não deve permitir cadastro com um email inválido - Status 400', {tags: '@regression'}, () => {
       const usuarioInvalido = userFactory.emailInvalido()
       cy.addUsuario(usuarioInvalido).should((response) => {
         expect(response.status).to.eq(400)
@@ -125,7 +125,7 @@ describe('API Usuarios', () => {
       })
     })
 
-    it('Não deve permitir cadastro com e-mail já existente - Status 400', () => {
+    it('Não deve permitir cadastro com e-mail já existente - Status 400', {tags: '@regression'}, () => {
       cy.addUsuario(usuario)
         .validateSchema(schema, {
           endpoint: '/usuarios', method: 'post', status: 400
@@ -153,7 +153,7 @@ describe('API Usuarios', () => {
         })
     })
 
-    it('Valida os campos obrigatórios - Status 400', () => {
+    it('Valida os campos obrigatórios - Status 400', {tags: '@regression'}, () => {
       const usuario = userFactory.camposAusentes()
 
       cy.addUsuario(usuario)
@@ -172,7 +172,7 @@ describe('API Usuarios', () => {
 
   context('DELETE Usuario', () => {
 
-    it('Realiza exclusão com sucesso - Status 200', () => {
+    it('Realiza exclusão com sucesso - Status 200', {tags: ['@smoke', '@regression']}, () => {
       const usuario = userFactory.valido()
       cy.addUsuario(usuario).then((response) => {
         expect(response.status).to.eq(201)
@@ -186,7 +186,7 @@ describe('API Usuarios', () => {
       })
     })
 
-    it('Nenhum registro encontrado - Status 200', () => {
+    it('Nenhum registro encontrado - Status 200', {tags: '@regression'}, () => {
       const usuario = userFactory.valido()
 
       cy.deleteUsuario(usuario)

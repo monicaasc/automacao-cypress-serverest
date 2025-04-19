@@ -6,7 +6,7 @@ describe('Frontend Login - ServerRest', () => {
     cy.visit('/login')
   })
 
-  it('Deve logar com sucesso e redirecionar para a home', () => {
+  it('Deve logar com sucesso e redirecionar para a home', {tags: ['@smoke', '@regression']}, () => {
     // Preenche formulário
     cy.get('[data-testid="email"]').type(email)
     cy.get('[data-testid="senha"]').type(password)
@@ -17,7 +17,7 @@ describe('Frontend Login - ServerRest', () => {
     cy.get('[data-testid="logout"]').should('be.visible')
   })
 
-  it('Deve exibir erro com credenciais inválidas', () => {
+  it('Deve exibir erro com credenciais inválidas', {tags: '@regression'}, () => {
     cy.get('[data-testid="email"]').type('invalido@qa.com')
     cy.get('[data-testid="senha"]').type('senhaerrada')
     cy.get('[data-testid="entrar"]').click()
