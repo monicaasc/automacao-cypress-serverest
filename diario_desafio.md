@@ -68,6 +68,7 @@ Antes de colocar a mão na massa, foi essencial refletir sobre a estrutura e as 
   - A integração com o GitHub Actions foi ajustada e está funcional, executando automaticamente os testes a cada push ou pull request nas branches `main` e `develop`.
   Esse fluxo garante feedback rápido sobre possíveis quebras, aumentando a confiabilidade e agilidade nas entregas
   - Utilização de secrets do GitHub para garantir a segurança das configurações
+  - Configuração do @cypress/grep para categorizar os testes (`@smoke`, `@regression`) e permitir executar na CI conforme a necessidade
   
 - **Registro de Issues** - ![GitHub issues](https://img.shields.io/github/issues/monicaasc/automacao-cypress-serverest)
   - Uso das Issues no Github para ter mapeado pontos de melhoria
@@ -92,8 +93,6 @@ Antes de colocar a mão na massa, foi essencial refletir sobre a estrutura e as 
 
 - Integração com relatórios (como Mochawesome, Allure) para melhor visibilidade dos resultados
 - Considerei a inclusão de **teste de regressão visual** com `cypress-image-snapshot`, mas foi necessário despriorizar esse item para outro momento
-- "Tempo é dinheiro!" — conforme a suite vai crescendo é necessário avaliar estratégias de limitar execução ou rodar testes específicos. O uso do cypress-grep poderia ajudar
-  - Uso do `cypress-grep` para filtragem por tags como `@smoke`, `@regression`
 - Priorização dos testes de API pela afinidade, mas com consciência do potencial de testes UI ainda a serem explorados
 - Decisão consciente de evitar BDD/Gherkin para não aumentar complexidade sem necessidade real
 - O desafio foi **instigante** e me deixou animada para continuar desenvolvendo e evoluindo a solução 🚀
