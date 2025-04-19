@@ -49,7 +49,7 @@ jobs:
           browser: chrome
           config-file: cypress.config.js
           command: npm run test:all
-          continue-on-error: false # Falha o job se os testes falharem
+        continue-on-error: false # Falha o job se os testes falharem
       
       # Execução de smoke e regression teste (PR para develop)
       - name: Run Smoke and Regression tests (PR develop)
