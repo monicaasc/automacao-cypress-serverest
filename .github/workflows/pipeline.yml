@@ -43,7 +43,7 @@ jobs:
 
         # Execução de todos os testes (PR para main ou agendamento)
       - name: Run full test (PR main ou schedule)
-        if: github.ref == 'refs/heads/main' || github.event_name == 'schedule'
+        if: github.event_name == 'schedule' || github.event.pull_request.base.ref == 'main'
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
@@ -53,7 +53,7 @@ jobs:
       
       # Execução de smoke e regression teste (PR para develop)
       - name: Run Smoke and Regression tests (PR develop)
-        if: github.ref == 'refs/heads/develop'
+        if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'develop'
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
